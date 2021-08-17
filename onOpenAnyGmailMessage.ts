@@ -38,6 +38,7 @@ function onOpenAnyGmailMessage(e: GoogleAppsScript.Addons.EventObject): GoogleAp
                                         .setOnChangeAction(
                                             CardService.newAction()
                                                 .setFunctionName('onSwitchLabelForThread')
+                                                .setLoadIndicator(CardService.LoadIndicator.SPINNER)
                                                 .setParameters({
                                                     action: childLabel.selected ? 'remove' : 'add',
                                                     threadId: thread.getId(),
