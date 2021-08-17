@@ -1,0 +1,20 @@
+{
+    "name": "@xch/apps-script-gmail-helper",
+    "version": "1.0.0",
+    "description": "",
+    "main": "onOpenAnyGmailMessage.gs.js",
+    "dependencies": {},
+    "devDependencies": {
+        "@google/clasp": "^2.4.1",
+        "@types/google-apps-script": "^1.0.37",
+        "@xch/prettier-config": "0.0.1",
+        "prettier": "2.3.2"
+    },
+    "scripts": {
+        "start": "clasp push --watch",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "prettier": "@xch/prettier-config",
+    "author": "Xingchen Hong <hello@xc-h.com>",
+    "license": "MIT"
+}

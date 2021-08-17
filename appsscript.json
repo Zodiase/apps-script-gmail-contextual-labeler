@@ -1,0 +1,34 @@
+{
+    "timeZone": "America/Los_Angeles",
+    "dependencies": {
+        "enabledAdvancedServices": [
+            {
+                "userSymbol": "Gmail",
+                "version": "v1",
+                "serviceId": "gmail"
+            }
+        ]
+    },
+    "oauthScopes": [
+        "https://www.googleapis.com/auth/gmail.addons.current.message.readonly",
+        "https://www.googleapis.com/auth/gmail.addons.execute",
+        "https://www.googleapis.com/auth/gmail.labels"
+    ],
+    "exceptionLogging": "STACKDRIVER",
+    "runtimeVersion": "V8",
+    "addOns": {
+        "common": {
+            "logoUrl": "https://via.placeholder.com/40",
+            "name": "Gmail Helper"
+        },
+        "gmail": {
+            "contextualTriggers": [
+                {
+                    "onTriggerFunction": "onOpenAnyGmailMessage",
+                    "unconditional": {}
+                }
+            ],
+            "openLinkUrlPrefixes": ["https://mail.google.com/"]
+        }
+    }
+}
