@@ -1,8 +1,8 @@
 {
-    "name": "@xch/apps-script-gmail-helper",
+    "name": "@xch/apps-script-gmail-contextual-labeler",
     "version": "1.0.0",
-    "description": "",
-    "main": "onOpenAnyGmailMessage.gs.js",
+    "description": "Quickly add deeply nested gmail labels in context.",
+    "repository": "github:Zodiase/apps-script-gmail-contextual-labeler",
     "dependencies": {},
     "devDependencies": {
         "@google/clasp": "^2.4.1",

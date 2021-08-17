@@ -20,7 +20,7 @@
     "addOns": {
         "common": {
             "logoUrl": "https://via.placeholder.com/40",
-            "name": "Gmail Helper"
+            "name": "Cx. Labels"
         },
         "gmail": {
             "contextualTriggers": [
