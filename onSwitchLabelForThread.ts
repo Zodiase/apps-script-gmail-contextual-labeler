@@ -20,7 +20,7 @@ function isSwitchLabelForThreadProps(x: any): x is SwitchLabelForThreadProps {
     return true;
 }
 
-function onSwitchLabelForThread(e: GoogleAppsScript.Addons.EventObject): void {
+function onSwitchLabelForThread(e: GoogleAppsScript.Addons.EventObject): GoogleAppsScript.Card_Service.ActionResponse {
     // Activate temporary Gmail scopes, in this case to allow message metadata to be read.
     const accessToken = e.gmail.accessToken;
     GmailApp.setCurrentMessageAccessToken(accessToken);
@@ -48,4 +48,13 @@ function onSwitchLabelForThread(e: GoogleAppsScript.Addons.EventObject): void {
         console.log(`Remove label "${labelName}" from thread "${threadId}".`);
         thread.removeLabel(label);
     }
+
+    const userLabels = GmailApp.getUserLabels();
+    const labelsInThread = thread.getLabels();
+    const labelModel = getLabelModel(userLabels, labelsInThread);
+    const contextualLabelerCard = buildContextualLabelerCard(labelModel, thread.getId());
+
+    return CardService.newActionResponseBuilder()
+        .setNavigation(CardService.newNavigation().popToRoot().updateCard(contextualLabelerCard))
+        .build();
 }
