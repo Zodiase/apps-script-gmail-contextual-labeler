@@ -4,10 +4,6 @@
  * 2. user opens a message while the addon is open.
  */
 function onOpenAnyGmailMessage(e: GoogleAppsScript.Addons.EventObject): GoogleAppsScript.Card_Service.Card[] {
-    console.log('Hello world!', e);
-
-    //! Implement a contextual trigger function that builds a message UI when the user selects the add-on in a message.
-
     // Activate temporary Gmail scopes, in this case to allow message metadata to be read.
     const accessToken = e.gmail.accessToken;
     GmailApp.setCurrentMessageAccessToken(accessToken);
@@ -39,6 +35,15 @@ function onOpenAnyGmailMessage(e: GoogleAppsScript.Addons.EventObject): GoogleAp
                                         .setValue(childLabel.fullName)
                                         .setControlType(CardService.SwitchControlType.CHECK_BOX)
                                         .setSelected(childLabel.selected)
+                                        .setOnChangeAction(
+                                            CardService.newAction()
+                                                .setFunctionName('onSwitchLabelForThread')
+                                                .setParameters({
+                                                    action: childLabel.selected ? 'remove' : 'add',
+                                                    threadId: thread.getId(),
+                                                    labelName: childLabel.fullName,
+                                                } as SwitchLabelForThreadProps as any)
+                                        )
                                 )
                         ),
                     CardService.newCardSection().setHeader(rootLabel.name)

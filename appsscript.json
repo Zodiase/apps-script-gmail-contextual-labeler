@@ -12,7 +12,8 @@
     "oauthScopes": [
         "https://www.googleapis.com/auth/gmail.addons.current.message.readonly",
         "https://www.googleapis.com/auth/gmail.addons.execute",
-        "https://www.googleapis.com/auth/gmail.labels"
+        "https://www.googleapis.com/auth/gmail.labels",
+        "https://www.googleapis.com/auth/gmail.modify"
     ],
     "exceptionLogging": "STACKDRIVER",
     "runtimeVersion": "V8",
