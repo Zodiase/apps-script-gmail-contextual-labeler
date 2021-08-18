@@ -1,5 +1,7 @@
 function buildContextualLabelerCard(labelModel: LabelModel, threadId: string): GoogleAppsScript.Card_Service.Card {
-    const selectedRootLabels = [...labelModel.rootLabels.values()].filter((rootLabel) => rootLabel.selected);
+    const selectedRootLabels = [...labelModel.rootLabels.values()]
+        .filter((rootLabel) => rootLabel.selected)
+        .sort(sortRootLabels);
     const selectedRootLabelsWithValidChildren = selectedRootLabels.filter(
         (rootLabel) => rootLabel.childLabels.size > 0
     );
@@ -34,7 +36,7 @@ function buildContextualLabelerCard(labelModel: LabelModel, threadId: string): G
                 return card;
             }
 
-            const childLabels = [...rootLabel.childLabels.values()];
+            const childLabels = [...rootLabel.childLabels.values()].sort(sortChildLabels);
             const newCardSection = childLabels.reduce(
                 // For every child label, add a new widget to toggle it.
                 // Note that "you can't add more than 100 widgets to a card section". See https://developers.google.com/apps-script/reference/card-service/card-section#addwidgetwidget.
