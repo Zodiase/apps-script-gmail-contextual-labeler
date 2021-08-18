@@ -27,6 +27,10 @@
             }
         },
         "gmail": {
+            "homepageTrigger": {
+                "enabled": true,
+                "runFunction": "onOpenAddon"
+            },
             "contextualTriggers": [
                 {
                     "onTriggerFunction": "onOpenAnyGmailMessage",
