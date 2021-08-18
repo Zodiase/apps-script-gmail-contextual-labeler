@@ -20,7 +20,11 @@
     "addOns": {
         "common": {
             "logoUrl": "https://rawcdn.githack.com/Zodiase/apps-script-gmail-contextual-labeler/b70189c94aee8d05bb7608a69b4a9b09a43b25a6/assets/apps-script-gmail-contextual-labeler-logo.png",
-            "name": "Cx. Labels"
+            "name": "Cx. Labels",
+            "layoutProperties": {
+                "primaryColor": "white",
+                "secondaryColor": "#3979e7"
+            }
         },
         "gmail": {
             "contextualTriggers": [
