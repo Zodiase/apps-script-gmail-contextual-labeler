@@ -8,13 +8,7 @@ function onOpenAnyGmailMessage(e: GoogleAppsScript.Addons.EventObject): GoogleAp
     const accessToken = e.gmail.accessToken;
     GmailApp.setCurrentMessageAccessToken(accessToken);
 
-    const messageId = e.gmail.messageId;
-    const message = GmailApp.getMessageById(messageId);
-    const userLabels = GmailApp.getUserLabels();
-    const thread = message.getThread();
-    const labelsInThread = thread.getLabels();
-    const labelModel = getLabelModel(userLabels, labelsInThread);
-    const contextualLabelerCard = buildContextualLabelerCard(labelModel, thread.getId());
+    const contextualLabelerCard = buildContextualLabelerCardFromMessageId(e.gmail.messageId);
 
-    return [contextualLabelerCard];
+    return [contextualLabelerCard.build()];
 }

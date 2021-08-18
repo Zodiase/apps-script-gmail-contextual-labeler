@@ -1,4 +1,15 @@
-function buildContextualLabelerCard(labelModel: LabelModel, threadId: string): GoogleAppsScript.Card_Service.Card {
+function buildContextualLabelerCardFromThreadId(threadId: string): GoogleAppsScript.Card_Service.CardBuilder {
+    const thread = GmailApp.getThreadById(threadId);
+
+    if (!thread) {
+        throw new Error(`Thread not found: ${threadId}`);
+    }
+
+    const userLabels = GmailApp.getUserLabels();
+    const labelsInThread = thread.getLabels();
+    const labelModel = getLabelModel(userLabels, labelsInThread);
+    const cardBuilder = CardService.newCardBuilder().setName('Labels');
+
     const selectedRootLabels = [...labelModel.rootLabels.values()]
         .filter((rootLabel) => rootLabel.selected)
         .sort(sortRootLabels);
@@ -8,28 +19,24 @@ function buildContextualLabelerCard(labelModel: LabelModel, threadId: string): G
 
     // No root labels.
     if (selectedRootLabels.length === 0) {
-        return CardService.newCardBuilder()
-            .addSection(
-                CardService.newCardSection().setHeader('No available labels').addWidget(
-                    //! Maybe add a help guide here.
-                    CardService.newTextParagraph().setText('Start by attaching some labels to the email thread.')
-                )
+        return cardBuilder.addSection(
+            CardService.newCardSection().setHeader('No available labels').addWidget(
+                //! Maybe add a help guide here.
+                CardService.newTextParagraph().setText('Start by attaching some labels to the email thread.')
             )
-            .build();
+        );
     }
     // No child labels.
     if (selectedRootLabelsWithValidChildren.length === 0) {
-        return CardService.newCardBuilder()
-            .addSection(
-                CardService.newCardSection().setHeader('No available labels').addWidget(
-                    //! Maybe add a help guide here.
-                    CardService.newTextParagraph().setText('None of the attached labels has applicable child labels.')
-                )
+        return cardBuilder.addSection(
+            CardService.newCardSection().setHeader('No available labels').addWidget(
+                //! Maybe add a help guide here.
+                CardService.newTextParagraph().setText('None of the attached labels has applicable child labels.')
             )
-            .build();
+        );
     }
 
-    const cardBuilder = selectedRootLabelsWithValidChildren.reduce(
+    return selectedRootLabelsWithValidChildren.reduce(
         // For every root label, add a new section with its child labels.
         (card, rootLabel) => {
             if (rootLabel.childLabels.size === 0) {
@@ -67,8 +74,6 @@ function buildContextualLabelerCard(labelModel: LabelModel, threadId: string): G
 
             return card.addSection(newCardSection);
         },
-        CardService.newCardBuilder()
+        cardBuilder
     );
-
-    return cardBuilder.build();
 }

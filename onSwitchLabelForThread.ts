@@ -49,12 +49,9 @@ function onSwitchLabelForThread(e: GoogleAppsScript.Addons.EventObject): GoogleA
         thread.removeLabel(label);
     }
 
-    const userLabels = GmailApp.getUserLabels();
-    const labelsInThread = thread.getLabels();
-    const labelModel = getLabelModel(userLabels, labelsInThread);
-    const contextualLabelerCard = buildContextualLabelerCard(labelModel, thread.getId());
+    const contextualLabelerCard = buildContextualLabelerCardFromThreadId(thread.getId());
 
     return CardService.newActionResponseBuilder()
-        .setNavigation(CardService.newNavigation().updateCard(contextualLabelerCard))
+        .setNavigation(CardService.newNavigation().updateCard(contextualLabelerCard.build()))
         .build();
 }
