@@ -8,7 +8,7 @@ function buildContextualLabelerCardFromThreadId(threadId: string): GoogleAppsScr
     const userLabels = GmailApp.getUserLabels();
     const labelsInThread = thread.getLabels();
     const labelModel = getLabelModel(userLabels, labelsInThread);
-    const cardBuilder = CardService.newCardBuilder().setName('Labels');
+    const cardBuilder = buildContextualLabelerCardBase();
 
     const selectedRootLabels = [...labelModel.rootLabels.values()]
         .filter((rootLabel) => rootLabel.selected)

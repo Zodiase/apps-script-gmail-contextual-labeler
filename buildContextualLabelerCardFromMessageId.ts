@@ -1,4 +1,8 @@
 function buildContextualLabelerCardFromMessageId(messageId: string): GoogleAppsScript.Card_Service.CardBuilder {
+    if (!messageId) {
+        return buildContextualLabelerCardEmptyView();
+    }
+
     const message = GmailApp.getMessageById(messageId);
 
     if (!message) {
