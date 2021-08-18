@@ -55,6 +55,6 @@ function onSwitchLabelForThread(e: GoogleAppsScript.Addons.EventObject): GoogleA
     const contextualLabelerCard = buildContextualLabelerCard(labelModel, thread.getId());
 
     return CardService.newActionResponseBuilder()
-        .setNavigation(CardService.newNavigation().popToRoot().updateCard(contextualLabelerCard))
+        .setNavigation(CardService.newNavigation().updateCard(contextualLabelerCard))
         .build();
 }
